@@ -1,0 +1,62 @@
+В отчёте шесть пар графиков:
+1. первые три пары: continious -> descrete -> plant;
+2. вторые три пары: continious -> plant.
+
+Что сделать для фильтра:
+1. находим омега;
+2. моделируем объект управления;
+3. строим ЛАЧХ, смотрим, что срез правильный;
+4. дискретизируем;
+5. сравниванием, пишем на плюсах во втором проекте.
+
+>> plant_descretization
+>> w = 2222*2*pi;
+W1 = tf(1,{1/w 1});
+bode(W1);
+Error using tf (line 366)
+The values of the "Numerator" and "Denominator" properties must be arrays of compatible sizes.
+ 
+>> W1 = tf(1,{1/w 1});
+Error using tf (line 366)
+The values of the "Numerator" and "Denominator" properties must be arrays of compatible sizes.
+ 
+>> W1 = tf(1,[1/w 1]);
+>> bode(W1);
+>> d1 = 0.01
+
+d1 =
+
+    0.0100
+
+>> y = c2d(W1, d1)
+
+y =
+ 
+        1
+  -------------
+  z - 2.329e-61
+ 
+Sample time: 0.01 seconds
+Discrete-time transfer function.
+
+>> bode(y)
+>> d1 = 1/44100
+
+d1 =
+
+   2.2676e-05
+
+>> y = c2d(W1, d1)
+
+y =
+ 
+    0.2714
+  ----------
+  z - 0.7286
+ 
+Sample time: 2.2676e-05 seconds
+Discrete-time transfer function.
+
+>> 
+>> bode(y)
+>> bode(y, W1)
